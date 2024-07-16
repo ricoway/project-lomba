@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    background: url('../img/foto_lomba_17_Agustus_2023.JPG') no-repeat center center;
+    background-size: cover; /* Menyesuaikan gambar agar memenuhi elemen */
+}
+
+h1 {
+    padding-top: 5rem;
+    text-align: center;
+    color: #0f0f10;
+    margin-bottom: 20px;
+}
+
+form {
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    color: #093c58;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0077b6;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #005f73;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    form {
+        padding: 15px;
+        width: 100%;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 320px) {
+    body {
+        padding: 5px;
+    }
+
+    form {
+        padding: 10px;
+        width: 100%;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px;
+    }
+}

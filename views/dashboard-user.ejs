@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="48x48"  href="/img/logo-ikip.png">
+  <title>Dashboard User</title>
+  <link rel="stylesheet" href="/css/user_dashboard.css">
+</head>
+<body>
+  <h1 id="welcome-message">Selamat Datang, <%= participant.nama %></h1>
+  <p id="thank-you-message">Terima kasih telah mendaftar sebagai peserta lomba.</p>
+  <a id="whatsapp-link" href="" target="_blank">Gabung Group WhatsApp</a><br>
+  <a id="wechat-link" href="" target="_blank">Gabung Group WeChat</a><br>
+  <a href="/auth/logout" id="logout-button">Logout</a>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const translations = {
+        id: "/id/translations.json",
+        zh: "/zh/translations.json",
+      };
+
+      function loadLanguage(language) {
+        fetch(translations[language])
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("welcome-message").innerHTML = data.welcomeMessage + '<%= participant.nama %>';
+            document.getElementById("thank-you-message").innerText = data.thankYouMessage;
+            document.getElementById("logout-button").innerText = data.logoutButton;
+
+      // WhatsApp link
+            const whatsappLink = data["whatsapp-link"];
+            document.getElementById("whatsapp-link").innerText = whatsappLink;
+            document.getElementById("whatsapp-link").href = getWhatsappLink('<%= participant.lomba %>');
+
+            // WeChat link
+            const wechatLink = data["wechat-link"];
+            document.getElementById("wechat-link").innerText = wechatLink;
+            document.getElementById("wechat-link").href = getWechatLink('<%= participant.lomba %>');
+          })
+          .catch((error) => console.error("Error loading translation:", error));
+      }
+
+      const storedLanguage = localStorage.getItem("language");
+      const currentLanguage = storedLanguage ? storedLanguage : "id";
+      loadLanguage(currentLanguage);
+    });
+
+    // Function to get WhatsApp link based on the competition
+    function getWhatsappLink(lomba) {
+      const whatsappLinks = {
+        Badminton: "https://chat.whatsapp.com/your-link-badminton",
+        Basket: "https://chat.whatsapp.com/your-link-basket",
+        SepakTakraw: "https://chat.whatsapp.com/your-link-takraw",
+        TenisMeja: "https://chat.whatsapp.com/your-link-tenis",
+        MLBB: "https://chat.whatsapp.com/your-link-mlbb",
+        MakanKerupuk: "https://chat.whatsapp.com/your-link-kerupuk",
+      };
+
+      return whatsappLinks[lomba] || "#"; // Default to "#" if no match
+    }
+
+    // Function to get WeChat link based on the competition
+    function getWechatLink(lomba) {
+      const wechatLinks = {
+        Badminton: "https://chat.wechat.com/your-link-badminton",
+        Basket: "https://chat.wechat.com/your-link-basket",
+        SepakTakraw: "https://chat.wechat.com/your-link-takraw",
+        TenisMeja: "https://chat.wechat.com/your-link-tenis",
+        MLBB: "https://chat.wechat.com/your-link-mlbb",
+        MakanKerupuk: "https://chat.wechat.com/your-link-kerupuk",
+      };
+
+      return wechatLinks[lomba] || "#"; // Default to "#" if no match
+
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #fff;
+  padding: 20px 0 5px 0;
+  background-color: #ffffff;
+}
+
+.language-dropdown {
+    position: relative; /* Keep this for absolute positioning of dropdown content */
+    display: inline-block; 
+    margin-top: -10px;
+    margin-left: auto;  /* Push the dropdown to the right */
+    margin-right: 0.5rem;
+    z-index: 10;
+}
+.dropdown-button {
+  background-color: #4CAF50; 
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content li {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+}
+.dropdown-content li:hover {
+  background-color: #e1dbdb;
+}
+.language-buttons {
+  display: none; /* Hide the old button container */
+}
+
+
+.logo-header-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 18px;
+  left: 18%;
+   z-index: 1; /* Pastikan ini tidak menutupi tombol bahasa */
+}
+
+.logo-container {
+  margin-right: 20px;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
+.header {
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 120px;
+}
+
+.left-content, .right-content {
+  flex: 1;
+}
+
+.header {
+  padding-top: 1rem;
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  animation: slideIn 2s ease-out;
+}
+
+.header-right {
+  padding-top: 1rem;
+  color: red;
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  animation: slideIn 2s ease-out;
+}
+
+.circle {
+  margin-top: 0;
+  margin-left: 15%;
+  width: 350px;
+  height: 350px;
+  background-color: red;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px;
+  z-index: 1; /* Pastikan ini tidak menutupi tombol bahasa */
+}
+
+.circle-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 2;
+}
+
+.circle-image {
+  width: 95%;
+  height: 95%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  z-index: 1;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: -40px;
+  /* posisi absolut dihapus */
+  /* position: absolute; */
+  /* bottom: 50%; */
+  /* left: 0; */
+  /* transform: translateY(200%); */
+}
+
+.button {
+  position: relative;
+  z-index: 10; /* tambahkan ini */
+  display: inline-block;
+  margin: 0 30px;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  color: #f5f7f8;
+  background-color: #ca1111;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: float 3s infinite;
+}
+
+.button:hover {
+  transform: translateY(-10px);
+  background-color: #00b4d8;
+  color: #c20e0e;
+}
+
+.button-login {
+  position: relative;
+  z-index: 10; /* tambahkan ini */
+  display: inline-block;
+  margin: 0 30px;
+  padding: 15px 45px;
+  font-size: 1.2rem;
+  color: #f5f7f8;
+  background-color: #ca1111;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: float 3s infinite;
+}
+
+.button-login:hover {
+  transform: translateY(-10px);
+  background-color: #00b4d8;
+  color: #c20e0e;
+}
+
+
+p {
+  color: red;
+}
+
+
+.filosofi {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  z-index: 1;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .dropdown-button {
+    padding: 8px 12px; /* Slightly smaller for tablets */
+  }
+  
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-content, .right-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .circle {
+    margin: 0 auto 20px;
+  }
+
+  .header {
+    font-size: 20px;
+  }
+
+  .header-right {
+    margin-top: 8%;
+    font-size: 30px;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 10px;
+  }
+
+  /* .button {
+    font-size: 1rem;
+    margin-top: 15px;
+    padding: 12px 20px;
+  } */
+}
+
+@media (max-width: 480px) {
+  /* .logo-header-container {
+    flex-direction: column;
+    align-items: center;
+  } */
+
+  .logo-header-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 18px;
+    left: 10%;
+  }
+
+  .dropdown-button {
+    padding: 2px 9px; 
+  }
+
+  .content {
+    margin-top: 150px;
+  }
+
+  .header {
+    font-size: 18px;
+  }
+
+  .header-right {
+    margin-top: 5%;
+    font-size: 30px;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* position: absolute;
+    bottom: 50%; */
+    /* left: 0;
+    transform: translateY(7%); */
+  }
+
+  /* .button {
+    font-size: 0.9rem;
+    margin-top: 0px;
+  } */
+
+  .circle-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  /* .filosofi {
+    width: 10%;
+    height: 10%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    z-index: 1;
+  } */
+}
+
+@media (max-width: 320px) {
+  .logo-header-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dropdown-content {
+    width: 100%; /* Full width on smallest screens */
+  }
+
+  .dropdown-button {
+    padding: 4px 6px; /* Smallest for small phones */
+  }
+  
+  .content {
+    margin-top: 200px;
+  }
+
+  .header {
+    font-size: 18px;
+  }
+
+  .header-right {
+    margin-top: 2.5%;
+    font-size: 10px;
+  }
+
+  /* .button {
+    font-size: 0.9rem;
+  } */
+
+  .circle-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .filosofi {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    z-index: 1;
+  }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/png" sizes="48x48"  href="/img/logo-ikip.png">
+    <title>Login</title>
+    <link rel="stylesheet" href="/../css/login.css">
+</head>
+<body>
+    <h1 id="login-title">Login Page</h1>
+    <form action="/auth/login" method="post">
+        <label for="username" id="label-username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password" id="label-password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit" id="submit-button">Login</button>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const translations = {
+                id: "/id/translations.json",
+                zh: "/zh/translations.json",
+            };
+
+            function loadLanguage(language) {
+                fetch(translations[language])
+                    .then((response) => response.json())
+                    .then((data) => {
+                        document.title = data.loginTitle;
+                        document.getElementById("login-title").innerText = data.loginTitle;
+                        document.getElementById("label-username").innerText = data.usernameLabel;
+                        document.getElementById("label-password").innerText = data.passwordLabel;
+                        document.getElementById("submit-button").innerText = data.submitButton;
+                    })
+                    .catch((error) => console.error("Error loading translation:", error));
+            }
+
+            const storedLanguage = localStorage.getItem("language");
+            const currentLanguage = storedLanguage ? storedLanguage : "id";
+            loadLanguage(currentLanguage);
+        });
+    </script>
+</body>
+</html>

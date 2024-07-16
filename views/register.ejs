@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="48x48"  href="/img/logo-ikip.png">
+    <title>Register</title>
+    <link rel="stylesheet" href="/../css/register.css">
+</head>
+<body>
+    <h1 id="registration-title">Registrasi Peserta Lomba</h1>
+    <form action="/auth/register" method="POST">
+        <label for="nama" id="label-nama">Nama:</label>
+        <input type="text" id="nama" name="nama" required>
+
+        <label for="idcard" id="label-idcard">ID Card:</label>
+        <input type="text" id="idcard" name="idcard" required>
+
+        <label for="nomorhp" id="label-nomorhp">Nomor HP:</label>
+        <input type="text" id="nomorhp" name="nomorhp" required>
+
+        <label for="pt" id="label-pt">PT:</label>
+        <input type="text" id="pt" name="pt" required>
+
+        <label for="dept" id="label-dept">Departemen:</label>
+        <select id="dept" name="dept" required onchange="toggleOtherDeptInput()">
+            <option value="" id="dept-default">Pilih Departemen</option>
+            <option value="GA" id="dept-ga">General Affair</option>
+            <option value="Engineering" id="dept-engineering">Engineering</option>
+            <option value="CW" id="dept-cw">Commercial Warehouse</option>
+            <option value="CP" id="dept-cp">Compliance</option>
+            <option value="HSE" id="dept-hse">HSE</option>
+            <option value="Lainnya" id="dept-lainnya">Lainnya</option>
+        </select>
+        <input type="text" id="other-dept" name="other_dept" style="display:none;" placeholder="Isi Departemen Lainnya">
+
+        <label for="lomba" id="label-lomba">Mendaftar Lomba:</label>
+        <select id="lomba" name="lomba" required onchange="toggleCompetitionInput()">
+            <option value="" id="lomba-default">Pilih Lomba</option>
+            <option value="Badminton" id="lomba-badminton">Badminton</option>
+            <option value="Basket" id="lomba-basket">Basket Ball</option>
+            <option value="Takraw" id="lomba-takraw">Sepak Takraw</option>
+            <option value="Tenis Meja" id="lomba-tenis">Tenis Meja</option>
+            <option value="MLBB" id="lomba-mlbb">Mobile Legend Bang Bang</option>
+            <option value="Kerupuk" id="lomba-kerupuk">Makan Kerupuk</option>
+        </select>
+
+        <div id="badminton-options" style="display:none;">
+            <label for="badminton-type" id="label-badminton-type">Jenis Badminton:</label>
+            <select id="badminton-type" name="badminton_type" onchange="toggleBadmintonInput()">
+                <option value="" id="badminton-default">Pilih Jenis</option>
+                <option value="Tunggal Putra" id="badminton-tunggal-putra">Tunggal Putra</option>
+                <option value="Tunggal Putri" id="badminton-tunggal-putri">Tunggal Putri</option>
+                <option value="Ganda Campuran" id="badminton-ganda-campuran">Ganda Campuran</option>
+                <option value="Ganda Putra" id="badminton-ganda-putra">Ganda Putra</option>
+            </select>
+        </div>
+
+        <div id="team-info" style="display:none;">
+            <label for="team-name" id="label-team-name">Nama Tim:</label>
+            <input type="text" id="team-name" name="team_name">
+
+            <label for="player1" id="label-player1">Pemain 1:</label>
+            <input type="text" id="player1" name="player1">
+
+            <label for="player2" id="label-player2">Pemain 2:</label>
+            <input type="text" id="player2" name="player2">
+
+            <label for="player3" id="label-player3" style="display:none;">Pemain 3:</label>
+            <input type="text" id="player3" name="player3" style="display:none;">
+
+            <label for="player4" id="label-player4" style="display:none;">Pemain 4:</label>
+            <input type="text" id="player4" name="player4" style="display:none;">
+
+            <label for="player5" id="label-player5" style="display:none;">Pemain 5:</label>
+            <input type="text" id="player5" name="player5" style="display:none;">
+        </div>
+
+        <label for="username" id="label-username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password" id="label-password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <input type="hidden" id="role" name="role" value="user">
+
+        <button type="submit" id="submit-button">Daftar</button>
+    </form>
+    <script>
+        function toggleOtherDeptInput() {
+            const deptSelect = document.getElementById('dept');
+            const otherDeptInput = document.getElementById('other-dept');
+            otherDeptInput.style.display = deptSelect.value === 'Lainnya' ? 'block' : 'none';
+        }
+
+        function toggleCompetitionInput() {
+            const competitionSelect = document.getElementById('lomba');
+            const badmintonOptions = document.getElementById('badminton-options');
+            const teamInfo = document.getElementById('team-info');
+            const additionalPlayers = document.getElementById('additional-players');
+
+            const player3 = document.getElementById('player3');
+            const labelPlayer3 = document.getElementById('label-player3');
+            const player4 = document.getElementById('player4');
+            const labelPlayer4 = document.getElementById('label-player4');
+            const player5 = document.getElementById('player5');
+            const labelPlayer5 = document.getElementById('label-player5');
+
+            badmintonOptions.style.display = competitionSelect.value === 'Badminton' ? 'block' : 'none';
+            teamInfo.style.display = ['Basket', 'Takraw', 'MLBB'].includes(competitionSelect.value) ? 'block' : 'none';
+
+            if (competitionSelect.value === 'Basket' || competitionSelect.value === 'Takraw') {
+                labelPlayer3.style.display = 'block';
+                player3.style.display = 'block';
+                labelPlayer4.style.display = 'none';
+                player4.style.display = 'none';
+                labelPlayer5.style.display = 'none';
+                player5.style.display = 'none';
+            } else if (competitionSelect.value === 'MLBB') {
+                labelPlayer3.style.display = 'block';
+                player3.style.display = 'block';
+                labelPlayer4.style.display = 'block';
+                player4.style.display = 'block';
+                labelPlayer5.style.display = 'block';
+                player5.style.display = 'block';
+            } else {
+                labelPlayer3.style.display = 'none';
+                player3.style.display = 'none';
+                labelPlayer4.style.display = 'none';
+                player4.style.display = 'none';
+                labelPlayer5.style.display = 'none';
+                player5.style.display = 'none';
+            }
+        }
+
+        function toggleBadmintonInput() {
+            const badmintonType = document.getElementById('badminton-type').value;
+            const teamInfo = document.getElementById('team-info');
+            teamInfo.style.display = ['Ganda Campuran', 'Ganda Putra'].includes(badmintonType) ? 'block' : 'none';
+            document.getElementById('player3').style.display = 'none';
+            document.getElementById('label-player3').style.display = 'none';
+            document.getElementById('player4').style.display = 'none';
+            document.getElementById('label-player4').style.display = 'none';
+            document.getElementById('player5').style.display = 'none';
+            document.getElementById('label-player5').style.display = 'none';
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const translations = {
+                id: "/id/translations.json",
+                zh: "/zh/translations.json",
+            };
+
+            function loadLanguage(language) {
+                fetch(translations[language])
+                    .then(response => response.json())
+                    .then(data => {
+                        document.title = data.registrationTitle;
+                        document.getElementById("registration-title").innerText = data.registrationTitle;
+                        document.getElementById("label-nama").innerText = data.nameLabel;
+                        document.getElementById("label-idcard").innerText = data.idCardLabel;
+                        document.getElementById("label-nomorhp").innerText = data.phoneLabel;
+                        document.getElementById("label-pt").innerText = data.ptLabel;
+                        document.getElementById("label-dept").innerText = data.deptLabel;
+                        document.getElementById("dept-default").innerText = data.deptDefault;
+                        document.getElementById("dept-ga").innerText = data.deptGA;
+                        document.getElementById("dept-engineering").innerText = data.deptEngineering;
+                        document.getElementById("dept-cw").innerText = data.deptCW;
+                        document.getElementById("dept-cp").innerText = data.deptCP;
+                        document.getElementById("dept-hse").innerText = data.deptHSE;
+                        document.getElementById("dept-lainnya").innerText = data.deptLainnya;
+                        document.getElementById("other-dept").placeholder = data.otherDeptPlaceholder;
+                        document.getElementById("label-lomba").innerText = data.competitionLabel;
+                        document.getElementById("lomba-default").innerText = data.lombaDefault;
+                        document.getElementById("lomba-badminton").innerText = data.lombaBadminton;
+                        document.getElementById("lomba-basket").innerText = data.lombaBasket;
+                        document.getElementById("lomba-takraw").innerText = data.lombaTakraw;
+                        document.getElementById("lomba-tenis").innerText = data.lombaTenis;
+                        document.getElementById("lomba-mlbb").innerText = data.lombaMLBB;
+                        document.getElementById("lomba-kerupuk").innerText = data.lombaKerupuk;
+                        document.getElementById("label-badminton-type").innerText = data.badmintonTypeLabel;
+                        document.getElementById("badminton-default").innerText = data.badmintonDefault;
+                        document.getElementById("badminton-tunggal-putra").innerText = data.badmintonTunggalPutra;
+                        document.getElementById("badminton-tunggal-putri").innerText = data.badmintonTunggalPutri;
+                        document.getElementById("badminton-ganda-campuran").innerText = data.badmintonGandaCampuran;
+                        document.getElementById("badminton-ganda-putra").innerText = data.badmintonGandaPutra;
+                        document.getElementById("label-team-name").innerText = data.teamNameLabel;
+                        document.querySelectorAll("[id^='label-player']").forEach((label, index) => {
+                            label.innerText = `${data.playerLabel} ${index + 1}:`;
+                        });
+                        document.getElementById("label-username").innerText = data.usernameLabel;
+                        document.getElementById("label-password").innerText = data.passwordLabel;
+                        document.getElementById("submit-button").innerText = data.daftarButton;
+                    })
+                    .catch(error => console.error("Error loading translation:", error));
+            }
+
+            const storedLanguage = localStorage.getItem("language");
+            const currentLanguage = storedLanguage ? storedLanguage : "id";
+            loadLanguage(currentLanguage);
+        });
+    </script>
+</body>
+</html>

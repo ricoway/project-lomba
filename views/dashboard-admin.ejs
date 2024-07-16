@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="48x48"  href="/img/logo-ikip.png">
+    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="/css/adm_dashboard.css">
+    <link rel="stylesheet" href="/css/modal.css">
+</head>
+<body>
+    <a href="/auth/logout" class="logout">Logout</a>
+    <h1>Dashboard Admin</h1>
+
+    <h2>Daftar Peserta Lomba</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>ID Card</th>
+                <th>Nomor HP</th>
+                <th>PT</th>
+                <th>Departemen</th>
+                <th>Lomba</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% participants.forEach(participant => { %>
+                <tr>
+                    <td><%= participant.nama %></td>
+                    <td><%= participant.idcard %></td>
+                    <td><%= participant.nomorhp %></td>
+                    <td><%= participant.pt %></td>
+                    <td><%= participant.dept %></td>
+                    <td>
+                        <% if (['Badminton', 'Basket', 'Takraw', 'MLBB'].includes(participant.lomba)) { %>
+                            <a href="#" onclick="showDetails('<%= participant.id %>')"><%= participant.lomba %></a>
+                        <% } else { %>
+                            <%= participant.lomba %>
+                        <% } %>
+                    </td>
+                    <td>
+                        <!-- <a href="#" onclick="showEditForm('<%= participant.id %>')">Edit</a> -->
+                        <a href="/admin/delete-participant/<%= participant.id %>" onclick="return confirm('Apakah Anda yakin ingin menghapus peserta ini?')">Hapus</a>
+                    </td>
+                </tr>
+            <% }) %>
+            <tr>
+                <td colspan="7" style="text-align: center;">
+                    <button onclick="window.location.href='/admin/export-excel'">Export Excel</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detail Peserta</h2>
+            <div id="detailsContent"></div>
+        </div>
+    </div>
+
+    <!-- Edit Form Modal -->
+    <div id="editFormModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Peserta</h2>
+            <form id="editParticipantForm" action="/admin/edit-participant/" method="POST">
+                <input type="hidden" id="edit-id" name="id">
+                <label for="edit-nama">Nama:</label>
+                <input type="text" id="edit-nama" name="nama" required>
+
+                <label for="edit-idcard">ID Card:</label>
+                <input type="text" id="edit-idcard" name="idcard" required>
+
+                <label for="edit-nomorhp">Nomor HP:</label>
+                <input type="text" id="edit-nomorhp" name="nomorhp" required>
+
+                <label for="edit-pt">PT:</label>
+                <input type="text" id="edit-pt" name="pt" required>
+
+                <label for="edit-dept">Departemen:</label>
+                <select id="edit-dept" name="dept" required onchange="toggleEditOtherDeptInput()">
+                    <option value="">Pilih Departemen</option>
+                    <option value="GA">General Affair</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="CW">Commercial Warehouse</option>
+                    <option value="CP">Compliance</option>
+                    <option value="HSE">HSE</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
+                <input type="text" id="edit-other-dept" name="other_dept" style="display:none;" placeholder="Isi Departemen Lainnya">
+
+                <label for="edit-lomba">Mendaftar Lomba:</label>
+                <select id="edit-lomba" name="lomba" required onchange="toggleEditCompetitionInput()">
+                    <option value="">Pilih Lomba</option>
+                    <option value="Badminton">Badminton</option>
+                    <option value="Basket">Basket Ball</option>
+                    <option value="Takraw">Sepak Takraw</option>
+                    <option value="Tenis Meja">Tenis Meja</option>
+                    <option value="MLBB">Mobile Legend Bang Bang</option>
+                    <option value="Kerupuk">Makan Kerupuk</option>
+                </select>
+
+                <div id="edit-badminton-options" style="display:none;">
+                    <label for="edit-badminton-type">Jenis Badminton:</label>
+                    <select id="edit-badminton-type" name="badminton_type" onchange="toggleEditBadmintonInput()">
+                        <option value="">Pilih Jenis</option>
+                        <option value="Tunggal Putra">Tunggal Putra</option>
+                        <option value="Tunggal Putri">Tunggal Putri</option>
+                        <option value="Ganda Campuran">Ganda Campuran</option>
+                        <option value="Ganda Putra">Ganda Putra</option>
+                    </select>
+                </div>
+
+                <div id="edit-team-info" style="display:none;">
+                    <label for="edit-team-name">Nama Tim:</label>
+                    <input type="text" id="edit-team-name" name="team_name">
+
+                    <label for="edit-player1">Pemain 1:</label>
+                    <input type="text" id="edit-player1" name="player1">
+
+                    <label for="edit-player2">Pemain 2:</label>
+                    <input type="text" id="edit-player2" name="player2">
+
+                    <label for="edit-player3">Pemain 3:</label>
+                    <input type="text" id="edit-player3" name="player3">
+
+                    <label for="edit-player4">Pemain 4:</label>
+                    <input type="text" id="edit-player4" name="player4">
+
+                    <label for="edit-player5">Pemain 5:</label>
+                    <input type="text" id="edit-player5" name="player5">
+                </div>
+
+                                                      <button type="submit">Simpan</button>
+                                                  </form>
+                                              </div>
+                                          </div>
+
+                                          <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const modal = document.getElementById("editFormModal");
+                                                const detailsModal = document.getElementById("detailsModal");
+                                                const span = document.getElementsByClassName("close")[0];
+                                                const detailsSpan = document.getElementsByClassName("close")[1];
+                                                const editForm = document.getElementById("editParticipantForm");
+                                                const detailsContent = document.getElementById("detailsContent");
+                                                const editFormModal = document.getElementById("editFormModal");
+                                                const detailsModal = document.getElementById("detailsModal");
+
+                                                span.onclick = function() {
+                                                    modal.style.display = "none";
+                                                }
+
+                                                detailsSpan.onclick = function() {
+                                                    detailsModal.style.display = "none";
+                                                }
+
+                                                window.onclick = function(event) {
+                                                    if (event.target === modal) {
+                                                        modal.style.display = "none";
+                                                    } else if (event.target === detailsModal) {
+                                                        detailsModal.style.display = "none";
+                                                    }
+                                                }
+
+                                                window.showEditForm = function(id) {
+                                                    const participant = participants.find(p => p.id === id);
+
+                                                    document.getElementById("edit-id").value = participant.id;
+                                                    document.getElementById("edit-nama").value = participant.nama;
+                                                    document.getElementById("edit-idcard").value = participant.idcard;
+                                                    document.getElementById("edit-nomorhp").value = participant.nomorhp;
+                                                    document.getElementById("edit-pt").value = participant.pt;
+                                                    document.getElementById("edit-dept").value = participant.dept;
+                                                    document.getElementById("edit-lomba").value = participant.lomba;
+                                                    document.getElementById("edit-badminton-type").value = participant.badminton_type;
+                                                    document.getElementById("edit-team-name").value = participant.team_name;
+                                                    document.getElementById("edit-player1").value = participant.player1;
+                                                    document.getElementById("edit-player2").value = participant.player2;
+                                                    document.getElementById("edit-player3").value = participant.player3;
+                                                    document.getElementById("edit-player4").value = participant.player4;
+                                                    document.getElementById("edit-player5").value = participant.player5;
+
+                                                    if (participant.dept === 'Lainnya') {
+                                                        document.getElementById("edit-other-dept").style.display = 'block';
+                                                    } else {
+                                                        document.getElementById("edit-other-dept").style.display = 'none';
+                                                    }
+
+                                                    modal.style.display = "block";
+                                                }
+
+                                                window.showDetails = function(id) {
+                                                    const participant = participants.find(p => p.id === id);
+
+                                                    let detailsHtml = `<p>Nama: ${participant.nama}</p>`;
+                                                    detailsHtml += `<p>ID Card: ${participant.idcard}</p>`;
+                                                    detailsHtml += `<p>Nomor HP: ${participant.nomorhp}</p>`;
+                                                    detailsHtml += `<p>PT: ${participant.pt}</p>`;
+                                                    detailsHtml += `<p>Departemen: ${participant.dept}</p>`;
+                                                    detailsHtml += `<p>Lomba: ${participant.lomba}</p>`;
+
+                                                    if (participant.lomba === 'Badminton') {
+                                                        detailsHtml += `<p>Jenis Badminton: ${participant.badminton_type}</p>`;
+                                                    }
+
+                                                    if (['Badminton', 'Basket', 'Takraw', 'MLBB'].includes(participant.lomba)) {
+                                                        detailsHtml += `<p>Nama Tim: ${participant.team_name}</p>`;
+                                                        detailsHtml += `<p>Pemain 1: ${participant.player1}</p>`;
+                                                        detailsHtml += `<p>Pemain 2: ${participant.player2}</p>`;
+                                                        detailsHtml += `<p>Pemain 3: ${participant.player3}</p>`;
+                                                        detailsHtml += `<p>Pemain 4: ${participant.player4}</p>`;
+                                                        detailsHtml += `<p>Pemain 5: ${participant.player5}</p>`;
+                                                    }
+
+                                                    detailsContent.innerHTML = detailsHtml;
+                                                    detailsModal.style.display = "block";
+                                                }
+
+                                                window.toggleEditOtherDeptInput = function() {
+                                                    const deptSelect = document.getElementById("edit-dept");
+                                                    const otherDeptInput = document.getElementById("edit-other-dept");
+                                                    otherDeptInput.style.display = deptSelect.value === 'Lainnya' ? 'block' : 'none';
+                                                }
+
+                                                window.toggleEditCompetitionInput = function() {
+                                                    const lombaSelect = document.getElementById("edit-lomba");
+                                                    const badmintonOptions = document.getElementById("edit-badminton-options");
+                                                    const teamInfo = document.getElementById("edit-team-info");
+
+                                                    if (lombaSelect.value === 'Badminton') {
+                                                        badmintonOptions.style.display = 'block';
+                                                        teamInfo.style.display = 'block';
+                                                    } else if (['Basket', 'Takraw', 'MLBB'].includes(lombaSelect.value)) {
+                                                        badmintonOptions.style.display = 'none';
+                                                        teamInfo.style.display = 'block';
+                                                    } else {
+                                                        badmintonOptions.style.display = 'none';
+                                                        teamInfo.style.display = 'none';
+                                                    }
+                                                }
+
+                                                window.toggleEditBadmintonInput = function() {
+                                                    const badmintonTypeSelect = document.getElementById("edit-badminton-type");
+                                                    const teamInfo = document.getElementById("edit-team-info");
+
+                                                    if (['Ganda Campuran', 'Ganda Putra'].includes(badmintonTypeSelect.value)) {
+                                                        teamInfo.style.display = 'block';
+                                                    } else {
+                                                        teamInfo.style.display = 'none';
+                                                    }
+                                                }
+                                            });
+
+                                          </script>
+                                      </body>
+                                      </html>

@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+  background: url('../img/foto_lomba_17_Agustus_2023.JPG') no-repeat center center;
+  background-size: cover; /* Menyesuaikan gambar agar memenuhi elemen */
+}
+
+h1 {
+    text-align: center;
+    color: #0f0f10;
+    margin-bottom: 20px;
+  padding: 0.6rem;
+  border-radius:5%;
+    background:rgb(208, 200, 200, 0.8);
+}
+
+form {
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    color: #093c58;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0077b6;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #005f73;
+}
+
+/* Responsive styles for tablets */
+@media screen and (max-width: 768px) {
+  form {
+    width: 300px; /* Adjust the width for tablets */
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  label {
+    margin: 10px 0 5px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  select {
+    padding: 8px;
+  }
+
+  button {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+/* Responsive styles for small tablets and large phones */
+@media screen and (max-width: 480px) {
+  form {
+    width: 250px; /* Adjust the width for small tablets and large phones */
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+
+  label {
+    margin: 8px 0 4px;
+    font-size: 14px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  select {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 6px;
+    font-size: 14px;
+  }
+}
+
+/* Responsive styles for small phones */
+@media screen and (max-width: 320px) {
+  form {
+    width: 200px; /* Adjust the width for small phones */
+    padding: 8px;
+  }
+
+  h1 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  label {
+    margin: 6px 0 3px;
+    font-size: 12px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  select {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  button {
+    padding: 5px;
+    font-size: 12px;
+  }
+}

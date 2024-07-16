@@ -1,0 +1,10 @@
+{
+  "wechat_groups": {
+    "Badminton": "https://www.google.com/search?q=wechatgroup&rlz=1C1CHBF_enID1068ID1069&oq=wechatgroup&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgNGIAEMgkIAhAAGA0YgAQyCQgDEAAYDRiABDIJCAQQABgNGIAEMgkIBRAAGA0YgAQyCQgGEAAYDRiABDIJCAcQABgNGIAEMgkICBAAGA0YgAQyCQgJEAAYDRiABNIBCTM4ODFqMGoxNagCCLACAQ&sourceid=chrome&ie=UTF-8",
+    "Basket": "https://chat.whatsapp.com/basketball-group",
+    "SepakTakraw": "https://chat.whatsapp.com/takraw-group",
+    "TenisMeja": "https://chat.whatsapp.com/table-tennis-group",
+    "MLBB": "https://chat.whatsapp.com/mlbb-group",
+    "MakanKerupuk": "https://chat.whatsapp.com/kerupuk-group"
+  }
+}
